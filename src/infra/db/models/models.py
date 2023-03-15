@@ -1,7 +1,9 @@
 from sqlalchemy import Column, Integer, String, Float, Boolean
 from src.infra.db.configs.database import Base
 
+
 class Produto(Base):
+    """Produto table."""
 
     __tablename__ = "produto"
 
@@ -11,7 +13,9 @@ class Produto(Base):
     price = Column(Float)
     available = Column(Boolean)
 
+
 class User(Base):
+    """User table."""
 
     __tablename__ = "user"
 

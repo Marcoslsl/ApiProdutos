@@ -15,10 +15,11 @@ Base = declarative_base()
 
 
 def create_db():
+    """Create db."""
     Base.metadata.create_all(bind=engine)
 
 
-#def get_db():
+# def get_db():
 #    db = SessionLocal()
 #    try:
 #        yield db

@@ -1,13 +1,18 @@
 from pydantic import BaseModel
 from typing import Optional, Type, List
 
+
 class User(BaseModel):
+    """User model."""
+
     id: Optional[str] = None
     name: str
     phone: str
 
-    
+
 class Produto(BaseModel):
+    """Produto model."""
+
     id: Optional[str] = None
     # user: Type[User]
     name: str
@@ -16,9 +21,14 @@ class Produto(BaseModel):
     available: bool = False
 
     class Config:
+        """Configs."""
+
         orm_mode = True
 
+
 class Pedido(BaseModel):
+    """Pedido model."""
+
     id: Optional[str] = None
     user: Type[User]
     produto: Type[Produto]

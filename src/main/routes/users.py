@@ -4,8 +4,10 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
+
 @router.post("/users")
 def register(user: User):
+    """Register."""
     user_repo = UserRepo()
     user_ = user_repo.create(user)
     return {"data": user_}
@@ -13,6 +15,7 @@ def register(user: User):
 
 @router.get("/users")
 def list_all():
+    """List all."""
     user_repo = UserRepo()
     user = user_repo.list_all()
     return {"data": user}
