@@ -8,6 +8,15 @@ class User(BaseModel):
     id: Optional[str] = None
     name: str
     phone: str
+    senha: str
+
+
+class UserNoPassword(BaseModel):
+    """User model."""
+
+    id: Optional[str] = None
+    name: str
+    phone: str
 
 
 class Produto(BaseModel):

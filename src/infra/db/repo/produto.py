@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import select, delete
+from sqlalchemy import select, delete, update
 from src.models import Produto
 from src.infra.db.models import Produto as ProdutoTable
 from src.infra.db.configs.database import SessionLocal
@@ -51,3 +51,21 @@ class ProdutoRepo(RepoInterface):
         self.db_conn.execute(stmt)
 
         return None
+
+    def update(self, product: Produto):
+        """Update a unique register."""
+        stmt = (
+            update(ProdutoTable)
+            .where(ProdutoTable.id == product.id)
+            .values(
+                name=product.name,
+                details=product.details,
+                price=product.price,
+                available=product.available,
+            )
+        )
+        self.db_conn.execute(stmt)
+
+        prods = self.get(product.id)
+
+        return prods

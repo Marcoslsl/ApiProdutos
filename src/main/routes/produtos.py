@@ -35,3 +35,11 @@ def delete(product_id: int):
     prod_repo = ProdutoRepo()
     prod = prod_repo.remove(product_id)
     return prod
+
+
+@router.put("/produtos")
+def update(product: Produto):
+    """Update."""
+    prod_repo = ProdutoRepo()
+    prod = prod_repo.update(product)
+    return prod
