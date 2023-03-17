@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from .produtos import router as produto_router
-from .users import router as user_router
+from .routes.produtos import router as produto_router
+from .routes.users import router as user_router
 
 router = APIRouter()
 router.include_router(produto_router)

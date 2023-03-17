@@ -26,3 +26,18 @@ class User(Base):
     senha = Column(String)
     phone = Column(String)
     produtos = relationship("Produto")
+    pedido = relationship("Pedido")
+
+
+class Pedido(Base):
+    """Pedido table."""
+
+    __tablename__ = "pedido"
+
+    id = Column(Integer, primary_key=True, index=True)
+    quantidade = Column(Integer)
+    entrega = Column(String)
+    endereco = Column(String)
+    obs = Column(String)
+    user_id = Column(Integer, ForeignKey("user.id", name="fk_usuario"))
+    prod_id = Column(Integer, ForeignKey("produto.id", name="fk_produto"))

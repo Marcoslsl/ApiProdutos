@@ -1,6 +1,6 @@
 from src.infra.db.repo import ProdutoRepo
 from src.models import Produto
-from fastapi import APIRouter, status
+from fastapi import APIRouter, status, HTTPException
 
 router = APIRouter()
 
@@ -26,6 +26,10 @@ def get(product_id: int):
     """Get."""
     prod_repo = ProdutoRepo()
     prod = prod_repo.get(product_id)
+    if len(prod) == 0:
+        raise HTTPException(
+            status_code=404, detail=f"Item {product_id} not found"
+        )
     return prod
 
 
