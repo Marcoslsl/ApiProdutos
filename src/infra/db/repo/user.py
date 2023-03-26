@@ -27,7 +27,6 @@ class UserRepo(RepoInterface):
         users = self.db_conn.query(UserTable).all()
         users_ = []
         for user in users:
-            print(user.senha)
             user_ = User(
                 id=user.id, name=user.name, phone=user.phone, senha=user.senha
             )
@@ -38,6 +37,13 @@ class UserRepo(RepoInterface):
     def get(self, user_id: int):
         """Get a unique user by id."""
         stmt = select(UserTable).filter_by(id=user_id)
+        serie = self.db_conn.execute(stmt).scalars().all()
+
+        return serie
+
+    def get_by_name(self, name: str):
+        """Get a unique user by id."""
+        stmt = select(UserTable).filter_by(name=name)
         serie = self.db_conn.execute(stmt).scalars().all()
 
         return serie

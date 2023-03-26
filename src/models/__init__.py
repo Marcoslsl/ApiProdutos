@@ -1,1 +1,1 @@
-from .models import User, Pedido, Produto, UserNoPassword
+from .models import *

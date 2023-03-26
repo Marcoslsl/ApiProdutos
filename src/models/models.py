@@ -19,6 +19,13 @@ class UserNoPassword(BaseModel):
     phone: str
 
 
+class Login(BaseModel):
+    """Login model."""
+
+    name: str
+    senha: str
+
+
 class Produto(BaseModel):
     """Produto model."""
 
