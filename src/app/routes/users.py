@@ -3,8 +3,34 @@ from src.models import User, UserNoPassword, Login
 from fastapi import APIRouter, HTTPException
 from typing import List
 from src.infra.providers.has_provider import get_hash, verify_hash
+from src.infra.providers.token_provider import *
+from fastapi.security import OAuth2PasswordBearer
+from fastapi import Depends
+from jose import JWTError
 
 router = APIRouter()
+ou2 = OAuth2PasswordBearer(tokenUrl="token")
+
+
+def get_logged_user(token=Depends(ou2)):
+    """Get logged user."""
+    try:
+        user_name = verify_access_token(token)
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid token.")
+
+    if not user_name:
+        raise HTTPException(status_code=401, detail="Invalid token.")
+
+    user = UserRepo().get_by_name(user_name)
+
+    return user
+
+
+@router.get("/me")
+def me(user: User = Depends(get_logged_user)):
+    """Me."""
+    return user
 
 
 @router.post("/token")
@@ -29,7 +55,8 @@ def login(login: Login):
             status_code=400, detail=f"User '{name}' already registered."
         )
 
-    return user
+    token = create_access_token({"sub": name})
+    return {"user": user, "access_token": token}
 
 
 @router.post("/users")
